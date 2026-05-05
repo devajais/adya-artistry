@@ -3,10 +3,10 @@ import type { Category, NavLink, SiteConfig } from '@/types';
 export const SITE_CONFIG: SiteConfig = {
   name: 'Adya Artistry',
   description: 'Handcrafted creations that blend tradition with modern elegance',
-  url: 'https://adyaartistry.com',
-  ogImage: 'https://adyaartistry.com/og-image.jpg',
+  url: 'https://adyaartistry.in',
+  ogImage: 'https://adyaartistry.in/og-image.jpg',
   links: {
-    instagram: 'https://instagram.com/adyaartistry',
+    instagram: 'https://instagram.com/adya.artistry',
     whatsapp: 'https://wa.me/1234567890',
     email: 'hello@adyaartistry.com',
   },

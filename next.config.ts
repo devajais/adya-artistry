@@ -1,21 +1,11 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  output: 'export', // Changed from 'standalone' for GitHub Pages
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'storage.googleapis.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.amazonaws.com',
-      },
-    ],
-    formats: ['image/avif', 'image/webp'],
+    unoptimized: true, // Required for static export
   },
-  compress: true,
+  trailingSlash: true, // Helps with GitHub Pages routing
 };
 
 export default nextConfig;
