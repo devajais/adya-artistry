@@ -42,21 +42,21 @@ export const CATEGORIES = [
   {
     id: 'handmade-cards',
     title: 'Handmade Cards',
-    description: 'Unique greeting cards for every occasion',
+    description: 'Beautiful greeting cards for every occasion',
     image: 'https://placehold.co/400x500/fce7f3/ec4899?text=Handmade+Cards',
     slug: 'handmade-cards',
   },
   {
     id: 'paper-flowers',
     title: 'Paper Flowers',
-    description: 'Beautiful paper flowers that last forever',
+    description: 'Delicate handcrafted paper blooms',
     image: 'https://placehold.co/400x500/fce7f3/ec4899?text=Paper+Flowers',
     slug: 'paper-flowers',
   },
   {
     id: 'art-supplies',
     title: 'Art Supplies',
-    description: 'Quality materials for your creative projects',
+    description: 'Premium materials for creative projects',
     image: 'https://placehold.co/400x500/fce7f3/ec4899?text=Art+Supplies',
     slug: 'art-supplies',
   },
@@ -77,8 +77,22 @@ export const CATEGORIES = [
   {
     id: 'paper-packs',
     title: 'Paper Packs',
-    description: 'Curated collections of beautiful papers',
+    description: 'Beautiful paper collections for crafts',
     image: 'https://placehold.co/400x500/fce7f3/ec4899?text=Paper+Packs',
     slug: 'paper-packs',
+  },
+  {
+    id: 'gift-boxes',
+    title: 'Gift Boxes',
+    description: 'Thoughtfully curated gift sets',
+    image: 'https://placehold.co/400x500/fce7f3/ec4899?text=Gift+Boxes',
+    slug: 'gift-boxes',
+  },
+  {
+    id: 'bookmarks',
+    title: 'Bookmarks',
+    description: 'Unique handmade bookmarks for readers',
+    image: 'https://placehold.co/400x500/fce7f3/ec4899?text=Bookmarks',
+    slug: 'bookmarks',
   },
 ] as const;

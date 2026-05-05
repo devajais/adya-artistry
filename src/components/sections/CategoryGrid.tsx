@@ -13,20 +13,20 @@ export function CategoryGrid() {
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-white via-pink-50/30 to-white">
+    <section className="py-16 sm:py-20 md:py-28 bg-gradient-to-b from-white via-pink-50/30 to-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-            Explore Our Collections
+        <div className="mx-auto max-w-3xl text-center mb-10 sm:mb-12 md:mb-16">
+          <h2 className="text-4xl sm:text-5xl font-display font-bold tracking-tight text-neutral-900 mb-4">
+            Our Collections
           </h2>
-          <p className="mt-4 text-lg text-neutral-600">
-            Handcrafted items for every occasion and creative need
+          <p className="text-lg sm:text-xl text-neutral-600">
+            Explore our handcrafted creations made with love and care
           </p>
         </div>
 
         <MasonryGrid
-          columns={{ default: 1, sm: 2, lg: 3, xl: 4 }}
-          gap="gap-6"
+          columns={{ default: 2, sm: 2, md: 3, lg: 4 }}
+          gap="gap-5 sm:gap-6"
           enableDiagonalFloat
         >
           {CATEGORIES.map((category, index) => {

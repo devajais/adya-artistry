@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --font-inter: 'Inter', system-ui, sans-serif;
-    --font-crimson: 'Crimson Text', Georgia, serif;
+    --font-nunito: 'Nunito', system-ui, sans-serif;
+    --font-poppins: 'Poppins', system-ui, sans-serif;
   }
 
   * {
@@ -13,11 +13,39 @@
   }
 
   body {
-    @apply bg-white text-neutral-900 antialiased;
+    @apply bg-white text-neutral-900 antialiased font-sans;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sans;
+    @apply font-display font-semibold;
+  }
+
+  /* Better mobile layout structure */
+  @media (max-width: 640px) {
+    body {
+      @apply text-base leading-relaxed;
+    }
+
+    h1 {
+      @apply text-3xl leading-tight;
+    }
+
+    h2 {
+      @apply text-2xl leading-snug;
+    }
+
+    p {
+      @apply leading-relaxed;
+    }
+
+    /* Ensure proper spacing on mobile */
+    section {
+      @apply px-4;
+    }
+
+    .container {
+      @apply px-4;
+    }
   }
 }
 

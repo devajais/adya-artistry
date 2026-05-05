@@ -1,18 +1,18 @@
 import type { Metadata } from 'next';
-import { Inter, Crimson_Text } from 'next/font/google';
+import { Poppins, Nunito } from 'next/font/google';
 import { SITE_CONFIG } from '@/lib/constants';
 import './globals.css';
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ['latin'],
-  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
   display: 'swap',
 });
 
-const crimson = Crimson_Text({
+const nunito = Nunito({
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  variable: '--font-crimson',
+  variable: '--font-nunito',
   display: 'swap',
 });
 
@@ -75,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${crimson.variable}`}>
+    <html lang="en" className={`${nunito.variable} ${poppins.variable}`}>
       <body>{children}</body>
     </html>
   );

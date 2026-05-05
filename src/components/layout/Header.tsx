@@ -13,11 +13,11 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-neutral-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-14 sm:h-16 items-center justify-between">
           {/* Logo */}
           <Link
             href="/"
-            className="text-2xl font-bold text-neutral-900 transition-colors hover:text-primary-600"
+            className="text-2xl font-display font-bold text-neutral-900 transition-colors hover:text-primary-600"
           >
             {SITE_CONFIG.name}
           </Link>

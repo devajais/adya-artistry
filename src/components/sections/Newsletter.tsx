@@ -24,18 +24,17 @@ export function Newsletter() {
   };
 
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-12 sm:py-16 md:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-            Stay Updated
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-neutral-900">
+            Stay Connected
           </h2>
-          <p className="mt-4 text-lg text-neutral-600">
-            Subscribe to our newsletter for new collections, exclusive offers, and creative
-            inspiration delivered to your inbox.
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-neutral-600">
+            Subscribe to get updates on new collections, special offers, and exclusive handcrafted creations
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-8 flex flex-col sm:flex-row gap-4">
+          <form onSubmit={handleSubmit} className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
             <div className="flex-1">
               <Input
                 type="email"
@@ -46,7 +45,7 @@ export function Newsletter() {
                 aria-label="Email address"
               />
             </div>
-            <Button type="submit" size="lg" className="sm:w-auto">
+            <Button type="submit" size="lg" className="w-full sm:w-auto">
               Subscribe
             </Button>
           </form>
