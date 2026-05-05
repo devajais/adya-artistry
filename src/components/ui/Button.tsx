@@ -16,7 +16,7 @@ const buttonVariants = cva(
       size: {
         sm: 'h-9 px-4 text-sm',
         md: 'h-11 px-6 text-base',
-        lg: 'h-13 px-8 text-lg',
+        lg: 'h-12 px-8 text-lg',
       },
     },
     defaultVariants: {
@@ -28,14 +28,13 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
+    VariantProps<typeof buttonVariants> {}
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, variant, size, type = 'button', ...props }, ref) => {
     return (
       <button
+        type={type}
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
