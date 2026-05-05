@@ -1,11 +1,16 @@
 import type { NextConfig } from 'next';
 
+const isProd = process.env.NODE_ENV === 'production';
+const repoName = 'adya-artistry';
+
 const nextConfig: NextConfig = {
-  output: 'export', // Changed from 'standalone' for GitHub Pages
+  output: 'export',
+  basePath: isProd ? `/${repoName}` : '',
+  assetPrefix: isProd ? `/${repoName}/` : '',
   images: {
-    unoptimized: true, // Required for static export
+    unoptimized: true,
   },
-  trailingSlash: true, // Helps with GitHub Pages routing
+  trailingSlash: true,
 };
 
 export default nextConfig;
