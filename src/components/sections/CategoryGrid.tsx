@@ -21,11 +21,12 @@ export function CategoryGrid() {
           columns={{ default: 1, sm: 2, lg: 3, xl: 4 }}
           gap="gap-6"
         >
-          {CATEGORIES.map((category) => (
+          {CATEGORIES.map((category, index) => (
             <Link
               key={category.id}
               href={`/categories/${category.slug}`}
-              className="block"
+              className="block animate-fade-in-up"
+              style={{ animationDelay: `${index * 100}ms`, opacity: 0 }}
             >
               <Card hover>
                 <CardImage src={category.image} alt={category.title} />

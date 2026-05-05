@@ -28,7 +28,7 @@ export default function AboutPage() {
           <div className="prose prose-lg prose-neutral mx-auto">
             <div className="relative aspect-video overflow-hidden rounded-2xl bg-neutral-200 mb-12">
               <img
-                src="/images/placeholders/about-hero.jpg"
+                src="https://placehold.co/1200x675/fce7f3/ec4899?text=Adya+Artistry"
                 alt="Adya Artistry workspace"
                 className="h-full w-full object-cover"
               />

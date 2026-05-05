@@ -34,7 +34,7 @@ export function AboutSection() {
           {/* Image Placeholder */}
           <div className="relative aspect-square overflow-hidden rounded-2xl bg-neutral-200">
             <img
-              src="/images/placeholders/about.jpg"
+              src="https://placehold.co/600x600/fce7f3/ec4899?text=Workspace"
               alt="Handcrafted items workspace"
               className="h-full w-full object-cover"
               loading="lazy"
