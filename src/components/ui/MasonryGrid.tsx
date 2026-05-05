@@ -27,14 +27,31 @@ const MasonryGrid = forwardRef<HTMLDivElement, MasonryGridProps>(
     const gridClasses = cn(
       'grid',
       gap,
+      // Default columns
       columns.default === 1 && 'grid-cols-1',
       columns.default === 2 && 'grid-cols-2',
       columns.default === 3 && 'grid-cols-3',
       columns.default === 4 && 'grid-cols-4',
-      columns.sm && `sm:grid-cols-${columns.sm}`,
-      columns.md && `md:grid-cols-${columns.md}`,
-      columns.lg && `lg:grid-cols-${columns.lg}`,
-      columns.xl && `xl:grid-cols-${columns.xl}`,
+      // sm breakpoint
+      columns.sm === 1 && 'sm:grid-cols-1',
+      columns.sm === 2 && 'sm:grid-cols-2',
+      columns.sm === 3 && 'sm:grid-cols-3',
+      columns.sm === 4 && 'sm:grid-cols-4',
+      // md breakpoint
+      columns.md === 1 && 'md:grid-cols-1',
+      columns.md === 2 && 'md:grid-cols-2',
+      columns.md === 3 && 'md:grid-cols-3',
+      columns.md === 4 && 'md:grid-cols-4',
+      // lg breakpoint
+      columns.lg === 1 && 'lg:grid-cols-1',
+      columns.lg === 2 && 'lg:grid-cols-2',
+      columns.lg === 3 && 'lg:grid-cols-3',
+      columns.lg === 4 && 'lg:grid-cols-4',
+      // xl breakpoint
+      columns.xl === 1 && 'xl:grid-cols-1',
+      columns.xl === 2 && 'xl:grid-cols-2',
+      columns.xl === 3 && 'xl:grid-cols-3',
+      columns.xl === 4 && 'xl:grid-cols-4',
       className
     );
 
