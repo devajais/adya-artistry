@@ -35,8 +35,7 @@ export function CategoryGrid() {
               <Link
                 key={category.id}
                 href={`/categories/${category.slug}`}
-                className={`block animate-fade-in-up ${floatClass}`}
-                style={{ animationDelay: `${index * 100}ms`, opacity: 0 }}
+                className={`block ${floatClass}`}
               >
                 <Card hover>
                   <CardImage src={category.image} alt={category.title} />
