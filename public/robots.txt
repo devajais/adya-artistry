@@ -1,0 +1,7 @@
+# public/robots.txt
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://adyaartistry.com/sitemap.xml

@@ -24,5 +24,6 @@ export interface SiteConfig {
   links: {
     instagram: string;
     whatsapp: string;
+    email: string;
   };
 }

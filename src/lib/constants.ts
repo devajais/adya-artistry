@@ -8,6 +8,7 @@ export const SITE_CONFIG: SiteConfig = {
   links: {
     instagram: 'https://instagram.com/adyaartistry',
     whatsapp: 'https://wa.me/1234567890',
+    email: 'hello@adyaartistry.com',
   },
 };
 

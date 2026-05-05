@@ -1,36 +1,159 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Adya Artistry - Handmade Craft Brand Website
+
+A Pinterest-style minimalistic landing page for Adya Artistry, built with Next.js 15, TypeScript, and TailwindCSS.
+
+## Features
+
+- 🎨 Pinterest-inspired minimalistic design
+- 📱 Fully responsive (mobile-first)
+- ⚡ Next.js 15 with App Router
+- 🎯 SEO optimized (sitemap, robots.txt, metadata)
+- 🔐 Ready for CMS integration (MongoDB + Cloud Storage)
+- 🐳 Docker ready for GCP Cloud Run deployment
+- ♿ Accessible (WCAG 2.1 AA compliant)
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript
+- **Styling:** TailwindCSS
+- **Icons:** Lucide React
+- **Deployment:** GCP Cloud Run (Docker)
+- **Future:** MongoDB, GCS/S3/Azure Blob Storage
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ and npm
+- Docker (optional, for local container testing)
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd adya-artistry-web
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Create environment file:
+```bash
+cp .env.local.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Update `.env.local` with your values (optional for static site).
 
-## Learn More
+### Development
 
-To learn more about Next.js, take a look at the following resources:
+Run the development server:
+```bash
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Build
 
-## Deploy on Vercel
+Build for production:
+```bash
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Start production server:
+```bash
+npm run start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Docker
+
+Build Docker image:
+```bash
+docker build -t adya-artistry-web .
+```
+
+Run container:
+```bash
+docker run -p 3000:3000 adya-artistry-web
+```
+
+## Project Structure
+
+```
+adya-artistry-web/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── (marketing)/        # Public pages
+│   │   ├── (legal)/            # Legal pages
+│   │   ├── layout.tsx          # Root layout
+│   │   └── globals.css         # Global styles
+│   ├── components/
+│   │   ├── ui/                 # Reusable UI components
+│   │   ├── layout/             # Header, Footer, Navigation
+│   │   └── sections/           # Page sections
+│   ├── lib/
+│   │   ├── utils.ts            # Utility functions
+│   │   └── constants.ts        # App constants
+│   └── types/                  # TypeScript types
+├── public/
+│   └── images/placeholders/    # Placeholder images
+├── docs/
+│   └── superpowers/           # Design specs and plans
+├── Dockerfile                  # Docker configuration
+└── README.md
+```
+
+## Pages
+
+- `/` - Landing page (Hero, Categories, About, Newsletter)
+- `/about` - About page
+- `/contact` - Contact page with form
+- `/privacy` - Privacy Policy
+- `/terms` - Terms of Service
+
+## Deployment
+
+### GCP Cloud Run
+
+1. Build and push Docker image:
+```bash
+gcloud builds submit --tag gcr.io/PROJECT_ID/adya-artistry-web
+```
+
+2. Deploy to Cloud Run:
+```bash
+gcloud run deploy adya-artistry-web \
+  --image gcr.io/PROJECT_ID/adya-artistry-web \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated
+```
+
+3. Set environment variables in Cloud Run console.
+
+## Future Enhancements (Phase 2+)
+
+- [ ] MongoDB integration for products and content
+- [ ] Custom CMS admin panel (`/admin`)
+- [ ] Cloud storage integration (GCS/S3/Azure)
+- [ ] Product detail pages
+- [ ] E-commerce functionality (cart, checkout)
+- [ ] Payment integration (Stripe/Razorpay)
+- [ ] Newsletter API integration
+- [ ] Contact form API endpoint
+
+## Contributing
+
+This is a private project. For questions or issues, contact the development team.
+
+## License
+
+All rights reserved © 2026 Adya Artistry
+
+---
+
+Built with ❤️ by the Adya Artistry team
