@@ -11,6 +11,7 @@ export interface MasonryGridProps extends HTMLAttributes<HTMLDivElement> {
     xl?: number;
   };
   gap?: string;
+  enableDiagonalFloat?: boolean;
 }
 
 const MasonryGrid = forwardRef<HTMLDivElement, MasonryGridProps>(
@@ -19,6 +20,7 @@ const MasonryGrid = forwardRef<HTMLDivElement, MasonryGridProps>(
       className,
       columns = { default: 1, sm: 2, lg: 3, xl: 4 },
       gap = 'gap-6',
+      enableDiagonalFloat = false,
       children,
       ...props
     },
