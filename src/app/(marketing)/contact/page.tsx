@@ -1,153 +1,155 @@
 // src/app/(marketing)/contact/page.tsx
 'use client';
 
-import type { Metadata } from 'next';
 import { FormEvent, useState } from 'react';
-import { Mail } from 'lucide-react';
+import { Mail, MessageCircle, Sparkles, Store } from 'lucide-react';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { Reveal } from '@/components/motion/Reveal';
 import { SITE_CONFIG } from '@/lib/constants';
 
-// Note: metadata export only works in server components
-// For client components, use generateMetadata in a parent layout
-
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'success'>('idle');
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Future: API call to send email
-    // For now, show success message
+    // Future: POST to a contact endpoint. For now, optimistic success.
     setStatus('success');
     setFormData({ name: '', email: '', message: '' });
-
     setTimeout(() => setStatus('idle'), 5000);
   };
 
   return (
-    <div className="py-16 sm:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl">
-          {/* Hero */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
-              Get in Touch
-            </h1>
-            <p className="mt-6 text-lg text-neutral-600">
-              Have a question or want to place a custom order? We'd love to hear from you.
-            </p>
-          </div>
+    <>
+      <PageHeader
+        eyebrow="Say hello"
+        title="Let's make something lovely"
+        highlight="lovely"
+        subtitle="Have a question or a custom order in mind? We'd genuinely love to hear from you."
+      />
 
-          <div className="grid gap-12 lg:grid-cols-2">
-            {/* Contact Form */}
-            <div>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-neutral-900 mb-2">
-                    Name
-                  </label>
-                  <Input
-                    id="name"
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                  />
+      <section className="bg-cream-50 py-20 sm:py-24">
+        <div className="container-wide">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+            {/* Form */}
+            <Reveal>
+              <div className="rounded-[1.75rem] border border-cream-300 bg-cream-100 p-8 shadow-soft sm:p-10">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="mb-2 block text-sm font-medium text-ink">
+                      Name
+                    </label>
+                    <Input
+                      id="name"
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="mb-2 block text-sm font-medium text-ink">
+                      Email
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="mb-2 block text-sm font-medium text-ink">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      rows={5}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      required
+                      className="flex w-full rounded-xl border border-cream-300 bg-cream-50 px-4 py-3 text-base text-ink placeholder:text-ink-muted/60 transition-colors focus:border-terracotta-400 focus:outline-none focus:ring-2 focus:ring-terracotta-400/40"
+                    />
+                  </div>
+                  <Button type="submit" size="lg" className="w-full">
+                    Send message
+                  </Button>
+                  {status === 'success' && (
+                    <p className="text-center text-sm text-sage-600" role="status">
+                      Thank you! We&apos;ll get back to you soon. ✦
+                    </p>
+                  )}
+                </form>
+              </div>
+            </Reveal>
+
+            {/* Info cards */}
+            <div className="space-y-5">
+              <Reveal delay={0.1}>
+                <div className="rounded-2xl border border-cream-300 bg-cream-100 p-6 shadow-soft">
+                  <h2 className="font-display text-xl font-semibold text-ink">Reach us directly</h2>
+                  <div className="mt-4 space-y-3">
+                    <a
+                      href={`mailto:${SITE_CONFIG.links.email}`}
+                      className="flex items-center gap-3 text-ink-soft transition-colors hover:text-terracotta-600"
+                    >
+                      <Mail className="h-5 w-5 text-terracotta-500" />
+                      {SITE_CONFIG.links.email}
+                    </a>
+                    <a
+                      href={SITE_CONFIG.links.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-ink-soft transition-colors hover:text-terracotta-600"
+                    >
+                      <MessageCircle className="h-5 w-5 text-terracotta-500" />
+                      Chat on WhatsApp
+                    </a>
+                    <a
+                      href={SITE_CONFIG.links.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-ink-soft transition-colors hover:text-terracotta-600"
+                    >
+                      <Sparkles className="h-5 w-5 text-terracotta-500" />
+                      @adya.artistry
+                    </a>
+                  </div>
                 </div>
+              </Reveal>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-neutral-900 mb-2">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-neutral-900 mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                    className="flex w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-base text-neutral-900 placeholder:text-neutral-400 transition-colors duration-250 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1"
-                  />
-                </div>
-
-                <Button type="submit" size="lg" className="w-full">
-                  Send Message
-                </Button>
-
-                {status === 'success' && (
-                  <p className="text-sm text-primary-600 text-center" role="status">
-                    Thank you! We'll get back to you soon.
+              <Reveal delay={0.18}>
+                <div className="rounded-2xl border border-cream-300 bg-cream-100 p-6 shadow-soft">
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="h-5 w-5 text-terracotta-500" />
+                    <h2 className="font-display text-xl font-semibold text-ink">Custom orders</h2>
+                  </div>
+                  <p className="mt-3 text-ink-muted">
+                    Looking for something specific? We love creating custom pieces — share
+                    your idea and let&apos;s bring your vision to life.
                   </p>
-                )}
-              </form>
-            </div>
-
-            {/* Contact Info */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-xl font-semibold text-neutral-900 mb-4">
-                  Contact Information
-                </h2>
-                <div className="space-y-4">
-                  <a
-                    href={`mailto:${SITE_CONFIG.links.email}`}
-                    className="flex items-center gap-3 text-neutral-600 hover:text-primary-600 transition-colors"
-                  >
-                    <Mail className="h-5 w-5" />
-                    {SITE_CONFIG.links.email}
-                  </a>
-                  <a
-                    href={SITE_CONFIG.links.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-neutral-600 hover:text-primary-600 transition-colors"
-                  >
-                    Instagram
-                  </a>
                 </div>
-              </div>
+              </Reveal>
 
-              <div>
-                <h2 className="text-xl font-semibold text-neutral-900 mb-4">
-                  Custom Orders
-                </h2>
-                <p className="text-neutral-600">
-                  Looking for something specific? We love creating custom pieces! Reach out
-                  with your ideas, and let's bring your vision to life.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-xl font-semibold text-neutral-900 mb-4">
-                  Wholesale Inquiries
-                </h2>
-                <p className="text-neutral-600">
-                  Interested in carrying our products in your store? Contact us to discuss
-                  wholesale opportunities and pricing.
-                </p>
-              </div>
+              <Reveal delay={0.26}>
+                <div className="rounded-2xl border border-cream-300 bg-cream-100 p-6 shadow-soft">
+                  <div className="flex items-center gap-3">
+                    <Store className="h-5 w-5 text-terracotta-500" />
+                    <h2 className="font-display text-xl font-semibold text-ink">Wholesale</h2>
+                  </div>
+                  <p className="mt-3 text-ink-muted">
+                    Interested in carrying our pieces in your store? Get in touch to discuss
+                    wholesale opportunities and pricing.
+                  </p>
+                </div>
+              </Reveal>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }

@@ -1,7 +1,6 @@
 // src/app/(legal)/layout.tsx
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
-import { SITE_CONFIG } from '@/lib/constants';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 
 export default function LegalLayout({
   children,
@@ -9,35 +8,23 @@ export default function LegalLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-neutral-50">
-      {/* Simple Header */}
-      <header className="border-b border-neutral-200 bg-white">
-        <div className="container mx-auto px-4 py-6 sm:px-6 lg:px-8">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors"
+    <>
+      <Header />
+      <main className="min-h-screen bg-cream-50 pt-16 sm:pt-20">
+        <section className="container-wide py-20">
+          <article
+            className="prose prose-lg mx-auto max-w-3xl
+              prose-headings:font-display prose-headings:text-ink prose-headings:tracking-tight
+              prose-h1:text-5xl prose-h1:font-semibold
+              prose-p:text-ink-soft prose-li:text-ink-soft
+              prose-a:text-terracotta-600 hover:prose-a:text-terracotta-700
+              prose-strong:text-ink"
           >
-            <ArrowLeft className="h-4 w-4" />
-            Back to {SITE_CONFIG.name}
-          </Link>
-        </div>
-      </header>
-
-      {/* Content */}
-      <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl prose prose-neutral prose-lg">
-          {children}
-        </div>
+            {children}
+          </article>
+        </section>
       </main>
-
-      {/* Simple Footer */}
-      <footer className="border-t border-neutral-200 bg-white py-8">
-        <div className="container mx-auto px-4 text-center sm:px-6 lg:px-8">
-          <p className="text-sm text-neutral-600">
-            &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    </div>
+      <Footer />
+    </>
   );
 }

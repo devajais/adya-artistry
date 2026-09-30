@@ -4,19 +4,22 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'group relative inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta-500 focus-visible:ring-offset-2 focus-visible:ring-offset-cream-100 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary: 'bg-primary-600 text-white hover:bg-primary-700 shadow-sm',
-        secondary: 'bg-neutral-100 text-neutral-900 hover:bg-neutral-200',
-        outline: 'border-2 border-neutral-300 bg-transparent hover:bg-neutral-50',
-        ghost: 'hover:bg-neutral-100 hover:text-neutral-900',
+        primary:
+          'bg-terracotta-500 text-cream-50 shadow-soft hover:bg-terracotta-600 hover:shadow-lift hover:-translate-y-0.5',
+        secondary:
+          'bg-ink text-cream-50 shadow-soft hover:bg-ink-soft hover:-translate-y-0.5',
+        outline:
+          'border border-ink/25 bg-transparent text-ink hover:border-ink/60 hover:bg-ink/[0.04]',
+        ghost: 'text-ink hover:bg-ink/[0.05]',
       },
       size: {
-        sm: 'h-9 px-4 text-sm',
-        md: 'h-11 px-6 text-base',
-        lg: 'h-12 px-8 text-lg',
+        sm: 'h-9 px-5 text-sm',
+        md: 'h-11 px-7 text-[0.95rem]',
+        lg: 'h-14 px-9 text-lg',
       },
     },
     defaultVariants: {
@@ -31,14 +34,16 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {}
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, type = 'button', ...props }, ref) => {
+  ({ className, variant, size, type = 'button', children, ...props }, ref) => {
     return (
       <button
         type={type}
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
-      />
+      >
+        {children}
+      </button>
     );
   }
 );

@@ -5,6 +5,7 @@ import { SITE_CONFIG } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description: 'Privacy policy for Adya Artistry website and services.',
+  alternates: { canonical: '/privacy' },
 };
 
 export default function PrivacyPage() {

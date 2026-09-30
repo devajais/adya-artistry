@@ -1,41 +1,94 @@
-// src/components/sections/AboutSection.tsx
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
+import { ImageSlot } from '@/components/ui/ImageSlot';
+import { Reveal } from '@/components/motion/Reveal';
+import { AnimatedHeading } from '@/components/motion/AnimatedHeading';
+import { PROCESS_STEPS } from '@/lib/constants';
 
 export function AboutSection() {
   return (
-    <section className="bg-neutral-50 py-12 sm:py-16 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-          {/* Text Content */}
-          <div className="text-center lg:text-left">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-neutral-900 mb-6">
-              Handcrafted with Love
-            </h2>
-            <p className="text-base sm:text-lg leading-relaxed text-neutral-600 mb-4">
-              Every piece tells a story. We pour our heart into creating unique, handmade items that bring warmth and creativity to your celebrations.
+    <section id="story" className="relative overflow-hidden bg-cream-100 py-24 sm:py-32">
+      <div className="container-wide grid grid-cols-1 items-center gap-14 lg:grid-cols-2">
+        {/* Images — overlapping, hand-placed feel */}
+        <Reveal direction="right">
+          <div className="relative mx-auto max-w-md lg:mx-0">
+            <ImageSlot
+              src="/images/about/studio.jpg"
+              alt="Inside the Adya Artistry studio"
+              label="Studio photo"
+              tone="sage"
+              className="aspect-[4/5] w-full rounded-[2rem] border border-cream-300 shadow-lift"
+              sizes="(max-width: 1024px) 90vw, 40vw"
+            />
+            <div className="absolute -bottom-10 -right-6 w-44 rotate-[5deg] sm:w-52">
+              <ImageSlot
+                src="/images/about/hands.jpg"
+                alt="Hands at work on a craft piece"
+                label="Hands at work"
+                tone="terracotta"
+                className="aspect-square w-full rounded-2xl border-4 border-cream-100 shadow-lift"
+                sizes="200px"
+              />
+            </div>
+            <div className="absolute -left-6 top-8 hidden rounded-2xl bg-cream-50/95 px-5 py-4 shadow-soft backdrop-blur sm:block">
+              <p className="font-display text-3xl font-semibold text-terracotta-600">est. 2021</p>
+              <p className="text-xs uppercase tracking-wider text-ink-muted">a small studio</p>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Copy + process */}
+        <div>
+          <Reveal>
+            <span className="eyebrow">
+              <span className="h-px w-8 bg-terracotta-400" />
+              Our story
+            </span>
+          </Reveal>
+          <AnimatedHeading
+            as="h2"
+            text="Slow craft, made one pair of hands at a time"
+            highlight="hands"
+            className="mt-4 font-display text-4xl font-semibold leading-[1.1] text-ink sm:text-5xl"
+          />
+          <Reveal delay={0.1}>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft text-pretty">
+              Adya Artistry began at a single kitchen table, with a box of paper and
+              a stubborn belief that handmade things carry a warmth machines can&apos;t.
+              Today we&apos;re still small on purpose — every card, bloom, and keepsake
+              passes through our own hands before it reaches yours.
             </p>
-            <p className="text-base sm:text-lg leading-relaxed text-neutral-600 mb-6">
-              From traditional techniques to modern designs, our creations blend craftsmanship with artistic expression.
-            </p>
-            <div className="mt-6 sm:mt-8 flex justify-center lg:justify-start">
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            {PROCESS_STEPS.map((step, i) => (
+              <Reveal key={step.id} delay={0.15 + i * 0.1}>
+                <div className="border-t border-cream-300 pt-4">
+                  <span className="font-display text-2xl font-semibold text-terracotta-400">
+                    {step.no}
+                  </span>
+                  <h3 className="mt-1 font-display text-lg font-semibold text-ink">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1 text-sm leading-relaxed text-ink-muted">
+                    {step.body}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.4}>
+            <div className="mt-10">
               <Link href="/about">
-                <Button variant="outline" size="lg">
-                  Learn More About Us
+                <Button variant="secondary" size="lg">
+                  Read our full story
                 </Button>
               </Link>
             </div>
-          </div>
-
-          {/* Image Placeholder */}
-          <div className="relative aspect-square overflow-hidden rounded-2xl bg-neutral-200 max-w-md mx-auto lg:max-w-none lg:mx-0">
-            <img
-              src="https://placehold.co/600x600/fce7f3/ec4899?text=Workspace"
-              alt="Handcrafted items workspace"
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

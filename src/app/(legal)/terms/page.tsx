@@ -5,6 +5,7 @@ import { SITE_CONFIG } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description: 'Terms of service for Adya Artistry website and services.',
+  alternates: { canonical: '/terms' },
 };
 
 export default function TermsPage() {
