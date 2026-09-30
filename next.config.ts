@@ -1,12 +1,11 @@
 import type { NextConfig } from 'next';
 
-const isProd = process.env.NODE_ENV === 'production';
-const repoName = 'adya-artistry';
-
+// The site is served from the root of the custom domain (adyaartistry.in),
+// so NO basePath/assetPrefix — assets live at "/_next/...". If you ever drop
+// the custom domain and serve from https://<user>.github.io/adya-artistry/,
+// re-add basePath: '/adya-artistry' and assetPrefix: '/adya-artistry/'.
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: isProd ? `/${repoName}` : '',
-  assetPrefix: isProd ? `/${repoName}/` : '',
   images: {
     unoptimized: true,
   },
