@@ -1,87 +1,191 @@
-// src/components/sections/Hero.tsx
 'use client';
 
 import { Button } from '@/components/ui/Button';
+import { Magnetic } from '@/components/motion/MagneticButton';
+import { ImageSlot } from '@/components/ui/ImageSlot';
+import { STATS } from '@/lib/constants';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { ArrowRight, ArrowDown } from 'lucide-react';
+
+// Three.js is client-only and heavy — load it lazily so first paint stays fast.
+const CraftScene = dynamic(() => import('@/components/three/CraftScene'), {
+  ssr: false,
+});
+
+const WORDS = ['Cards', 'Blooms', 'Crochet', 'Keepsakes', 'Gifts'];
 
 export function Hero() {
-  const [text, setText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
-  const words = ['Handcrafted Cards', 'Paper Flowers', 'Art Supplies', 'Crochet Items', 'Custom Creations'];
-  const typingSpeed = 150;
-  const deletingSpeed = 100;
+  const reduce = useReducedMotion();
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const handleType = () => {
-      const i = loopNum % words.length;
-      const fullText = words[i];
-
-      setText(
-        isDeleting
-          ? fullText.substring(0, text.length - 1)
-          : fullText.substring(0, text.length + 1)
-      );
-
-      if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && text === '') {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
-      }
-    };
-
-    const timer = setTimeout(
-      handleType,
-      isDeleting ? deletingSpeed : typingSpeed
-    );
-
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum, words]);
+    if (reduce) return;
+    const t = setInterval(() => setIndex((i) => (i + 1) % WORDS.length), 2400);
+    return () => clearInterval(t);
+  }, [reduce]);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-pink-50 via-white to-pink-50 py-20 sm:py-32">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-display font-bold tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
-            Discover Beautiful
-            <br />
-            <span className="text-primary-600 inline-block min-h-[1.2em]">
-              {text}
-              <span className="animate-pulse">|</span>
-            </span>
-          </h1>
-          <p className="mt-6 text-lg leading-relaxed text-neutral-600 sm:text-xl max-w-2xl mx-auto">
-            Each piece is handcrafted with love and attention to detail. From greeting cards to paper flowers, discover unique creations that bring joy to every occasion.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-4">
-            <Link href="/shop">
-              <Button size="lg">
-                Explore Our Craft
-              </Button>
-            </Link>
-            <Link href="/about">
-              <Button variant="outline" size="lg">
-                Learn More
-              </Button>
-            </Link>
-          </div>
-        </div>
+    <section className="relative -mt-16 overflow-hidden bg-cream-100 grain-overlay sm:-mt-20">
+      {/* soft warm wash, kept to the right so text stays clean */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -right-24 top-24 h-[32rem] w-[32rem] rounded-full bg-terracotta-200/40 blur-3xl" />
       </div>
 
-      {/* Decorative element */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 blur-3xl opacity-20">
-          <div
-            className="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-primary-400 to-primary-600"
-            style={{
-              clipPath:
-                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-            }}
-          />
-        </div>
+      {/* 3D floating clay objects — confined to the right half, desktop only,
+          kept soft so the feature photo stays the focus */}
+      <div className="absolute right-0 top-0 z-0 hidden h-full w-1/2 opacity-70 lg:block">
+        <CraftScene />
       </div>
+
+      <div className="container-wide relative z-10 grid min-h-[92vh] grid-cols-1 items-center gap-12 py-28 lg:grid-cols-[1.1fr_0.9fr]">
+        {/* Left: copy */}
+        <div className="max-w-2xl">
+          <motion.span
+            className="eyebrow"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="h-px w-8 bg-terracotta-400" />
+            Handmade in small batches
+          </motion.span>
+
+          <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-6xl md:text-7xl">
+            <motion.span
+              className="block"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Beautifully
+            </motion.span>
+            <motion.span
+              className="block"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            >
+              handcrafted
+            </motion.span>
+            <motion.span
+              className="mt-1 flex flex-wrap items-baseline gap-x-4"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.19, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="font-normal italic text-ink-muted">paper</span>
+              {/* Single word in normal flow so it shares "paper"'s baseline
+                  exactly; mode="wait" keeps only one word present at a time. */}
+              {reduce ? (
+                <span className="text-gradient-warm italic">{WORDS[0]}</span>
+              ) : (
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={WORDS[index]}
+                    className="text-gradient-warm inline-block whitespace-nowrap italic"
+                    initial={{ opacity: 0, y: '0.18em' }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: '-0.18em' }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {WORDS[index]}
+                  </motion.span>
+                </AnimatePresence>
+              )}
+            </motion.span>
+          </h1>
+
+          <motion.p
+            className="mt-7 max-w-xl text-lg leading-relaxed text-ink-soft text-pretty"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25 }}
+          >
+            Adya Artistry makes cards, paper flowers, and crochet keepsakes — each
+            one cut, folded and finished by hand, so every occasion feels as
+            thoughtful as the person it&apos;s for.
+          </motion.p>
+
+          <motion.div
+            className="mt-10 flex flex-wrap items-center gap-4"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.35 }}
+          >
+            <Magnetic>
+              <Link href="/shop">
+                <Button size="lg">
+                  Explore the collection
+                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </Magnetic>
+            <Link href="/about">
+              <Button variant="outline" size="lg">
+                Our story
+              </Button>
+            </Link>
+          </motion.div>
+
+          {/* stats */}
+          <motion.dl
+            className="mt-14 grid max-w-lg grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, delay: 0.5 }}
+          >
+            {STATS.map((s) => (
+              <div key={s.label}>
+                <dt className="font-display text-3xl font-semibold text-terracotta-600">
+                  {s.value}
+                </dt>
+                <dd className="mt-1 text-xs uppercase tracking-wider text-ink-muted">
+                  {s.label}
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
+        </div>
+
+        {/* Right: featured image slot, floating card style */}
+        <motion.div
+          className="relative hidden lg:block"
+          initial={{ opacity: 0, scale: 0.94, rotate: -3 }}
+          animate={{ opacity: 1, scale: 1, rotate: -2 }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="relative mx-auto max-w-sm animate-float-slow">
+            <ImageSlot
+              src="/images/hero/feature.jpg"
+              alt="A signature handcrafted Adya Artistry piece"
+              label="Hero feature photo"
+              priority
+              tone="cream"
+              className="aspect-[4/5] w-full rounded-[2rem] border border-cream-300 shadow-lift"
+              sizes="(max-width: 1024px) 0px, 34vw"
+            />
+            <div className="absolute -bottom-5 -left-5 rounded-full bg-cream-50/95 px-4 py-2 text-sm font-medium text-ink shadow-soft backdrop-blur">
+              ✦ made with love
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* scroll cue */}
+      <motion.div
+        className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-ink-muted"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.1 }}
+      >
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-[0.7rem] uppercase tracking-[0.25em]">Scroll</span>
+          <ArrowDown className="h-4 w-4 animate-bounce" />
+        </div>
+      </motion.div>
     </section>
   );
 }

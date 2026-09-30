@@ -2,71 +2,108 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { SITE_CONFIG, NAV_LINKS } from '@/lib/constants';
+import { AnimatePresence, motion } from 'framer-motion';
+import { NAV_LINKS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-neutral-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-14 sm:h-16 items-center justify-between">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="text-2xl font-display font-bold text-neutral-900 transition-colors hover:text-primary-600"
-          >
-            {SITE_CONFIG.name}
+    <header
+      className={cn(
+        'fixed inset-x-0 top-0 z-50 transition-all duration-500',
+        scrolled
+          ? 'border-b border-cream-300 bg-cream-100/85 backdrop-blur-md'
+          : 'border-b border-transparent bg-transparent',
+      )}
+    >
+      <div className="container-wide">
+        <div className="flex h-20 items-center justify-between sm:h-24">
+          <Link href="/" aria-label="Adya Artistry — home" className="flex items-center">
+            <Image
+              src="/adya-artistry-logo-cropped.png"
+              alt="Adya Artistry — made with heart"
+              width={852}
+              height={307}
+              priority
+              className="h-14 w-auto sm:h-16"
+            />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex md:items-center md:gap-8">
+          <nav className="hidden items-center gap-9 md:flex">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-neutral-700 transition-colors hover:text-primary-600"
+                className="group relative text-sm font-medium text-ink-soft transition-colors hover:text-ink"
               >
                 {link.label}
+                <span className="absolute -bottom-1 left-0 h-px w-0 bg-terracotta-500 transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
+            <Link
+              href="/contact"
+              className="rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-cream-50 transition-all hover:-translate-y-0.5 hover:bg-terracotta-600"
+            >
+              Get in touch
+            </Link>
           </nav>
 
-          {/* Mobile Menu Button */}
           <button
             type="button"
-            className="md:hidden rounded-lg p-2 text-neutral-700 hover:bg-neutral-100"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="rounded-full p-2 text-ink hover:bg-ink/5 md:hidden"
+            onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
-            aria-expanded={mobileMenuOpen}
+            aria-expanded={open}
           >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
-
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <nav className="border-t border-neutral-200 py-4 md:hidden">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block py-2 text-base font-medium text-neutral-700 transition-colors hover:text-primary-600"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-        )}
       </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden border-t border-cream-300 bg-cream-100/95 backdrop-blur-md md:hidden"
+          >
+            <div className="container-wide flex flex-col py-4">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="border-b border-cream-200 py-3 font-display text-lg text-ink-soft transition-colors hover:text-terracotta-600"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                href="/contact"
+                className="mt-4 rounded-full bg-ink px-5 py-3 text-center text-sm font-medium text-cream-50"
+                onClick={() => setOpen(false)}
+              >
+                Get in touch
+              </Link>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
